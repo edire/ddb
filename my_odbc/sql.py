@@ -12,10 +12,10 @@ class SQL:
     def __init__(self
                  , db = os.getenv('odbc_db')
                  , server = os.getenv('odbc_server')
+                 , local_cred = 'yes'
                  , uid = os.getenv('odbc_uid')
                  , pwd = os.getenv('odbc_pwd')
-                 , local_cred = 'yes'
-                 , driver = os.getenv('odbc_driver')
+                 , driver = 'ODBC Driver 17 for SQL Server'
                  ):
         
         if local_cred=='yes':
