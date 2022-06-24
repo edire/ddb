@@ -1,4 +1,4 @@
-# my_webdrivers
+# my_odbc
 
 A Python library for custom data connections.
 
@@ -12,6 +12,10 @@ pip install git+https://github.com/edire/my_odbc.git
 import my_odbc
 
 odbc = SQL(db='Test', server='localhost')
+
+df = odbc.read("select * from dbo.tbl")
+
+odbc.run("exec dbo.stp")
 ```
 
 ## Contributing
