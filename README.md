@@ -16,6 +16,8 @@ odbc = SQL(db='Test', server='localhost')
 df = odbc.read("select * from dbo.tbl")
 
 odbc.run("exec dbo.stp")
+
+df.to_sql("tbl2", con=odbc.con, schema="dbo", index=False)
 ```
 
 ## Contributing
