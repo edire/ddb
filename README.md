@@ -11,7 +11,7 @@ pip install git+https://github.com/edire/my_odbc.git
 ```python
 import my_odbc
 
-odbc = SQL(db='Test', server='localhost')
+odbc = my_odbc.SQL(db='Test', server='localhost')
 
 df = odbc.read("select * from dbo.tbl")
 
