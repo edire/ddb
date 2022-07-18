@@ -1,6 +1,5 @@
 
 import os
-import pyodbc
 import urllib
 from sqlalchemy import create_engine
 import pandas as pd
@@ -30,27 +29,14 @@ class SQL:
         server_str = f'SERVER={server};'
         db_str = f'DATABASE={db};'
 
-        self.con_str = driver_str + server_str + db_str + trusted_conn_str + uid_str + pwd_str
-        con_str_write = urllib.parse.quote_plus(self.con_str)
+        con_str_write = urllib.parse.quote_plus(driver_str + server_str + db_str + trusted_conn_str + uid_str + pwd_str)
         self.con = create_engine('mssql+pyodbc:///?odbc_connect={}'.format(con_str_write), fast_executemany=True)
 
     def read(self, sql):
         return pd.read_sql_query(sql=sql, con=self.con)
 
-    def run(self, sql, auto_commit=False):
-        with pyodbc.connect(self.con_str) as con_pyodbc:
-            if auto_commit==True:
-                con_pyodbc.autocommit = True
-            else:
-                con_pyodbc.autocommit = False
-
-            with con_pyodbc.cursor() as cursor:
-                cursor.execute(sql)
-                while cursor.nextset():
-                    pass
-                if auto_commit==False:
-                    con_pyodbc.commit()
-
+    def run(self, sql):
+        self.con.execute(sql)
 
     def __update_dtype(self, df, column, dtype):
         dict_dtype = {
