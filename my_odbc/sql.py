@@ -36,7 +36,7 @@ class SQL:
         return pd.read_sql_query(sql=sql, con=self.con)
 
     def run(self, sql):
-        self.con.execute(sql)
+        self.con.execution_options(autocommit=True).execute(sql)
 
     def __update_dtype(self, df, column, dtype):
         dict_dtype = {
