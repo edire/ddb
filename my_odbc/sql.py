@@ -15,6 +15,7 @@ class SQL:
                  , uid = os.getenv('odbc_uid')
                  , pwd = os.getenv('odbc_pwd')
                  , driver = 'ODBC Driver 17 for SQL Server'
+                 , fast_executemany = True
                  ):
 
         if local_cred=='yes':
@@ -30,7 +31,7 @@ class SQL:
         db_str = f'DATABASE={db};'
 
         con_str_write = urllib.parse.quote_plus(driver_str + server_str + db_str + trusted_conn_str + uid_str + pwd_str)
-        self.con = create_engine('mssql+pyodbc:///?odbc_connect={}'.format(con_str_write), fast_executemany=True)
+        self.con = create_engine('mssql+pyodbc:///?odbc_connect={}'.format(con_str_write), fast_executemany=fast_executemany)
 
     def read(self, sql):
         return pd.read_sql_query(sql=sql, con=self.con)
