@@ -2,7 +2,7 @@
 from setuptools import setup
 setup(
     name='my-odbc-edire',
-    version='0.0.2',
+    version='0.0.3',
     author='Eric Di Re',
     description='Custom ODBC Data Connections.',
     url='https://github.com/edire/my_odbc.git',

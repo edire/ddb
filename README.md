@@ -18,6 +18,7 @@ df = odbc.read("select * from dbo.tbl")
 odbc.run("exec dbo.stp")
 
 df.to_sql("tbl2", con=odbc.con, schema="dbo", index=False)
+odbc.to_sql(df, "tbl2", schema="dbo", index=False)
 ```
 
 ## Contributing
@@ -30,4 +31,4 @@ MIT License
 
 ## Release Updates
 
-Remove pyodbc from SQL class, now uses SQLAlchemy for executing tSQL queries.
+Added to_sql function in order to avoid Pandas calling SQLAlchemy to check INFORMATION_SCHEMA which can lock up.
