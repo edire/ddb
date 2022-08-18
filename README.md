@@ -31,4 +31,4 @@ MIT License
 
 ## Release Updates
 
-Added to_sql function in order to avoid Pandas calling SQLAlchemy to check INFORMATION_SCHEMA which can lock up.
+Reverted back to original mssql "run" logic to pick up errors at any point during code execution.

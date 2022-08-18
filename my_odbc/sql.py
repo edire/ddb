@@ -35,9 +35,21 @@ class SQL:
 
     def read(self, sql):
         return pd.read_sql_query(sql=sql, con=self.con)
+        
+    def run(self, sql, auto_commit=False):
+        con_pyodbc = self.con.raw_connection()
+        
+        if auto_commit==True:
+            con_pyodbc.autocommit = True
+        else:
+            con_pyodbc.autocommit = False
 
-    def run(self, sql):
-        self.con.execution_options(autocommit=True).execute(sql)
+        with con_pyodbc.cursor() as cursor:
+            cursor.execute(sql)
+            while cursor.nextset():
+                pass
+            if auto_commit==False:
+                con_pyodbc.commit()
 
     def __update_dtype(self, df, column, dtype):
         dict_dtype = {
