@@ -31,4 +31,4 @@ MIT License
 
 ## Release Updates
 
-Reverted back to original mssql "run" logic to pick up errors at any point during code execution.
+Updated MSSQL create table logic to account for various size integer columns.

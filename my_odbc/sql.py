@@ -35,10 +35,10 @@ class SQL:
 
     def read(self, sql):
         return pd.read_sql_query(sql=sql, con=self.con)
-        
+
     def run(self, sql, auto_commit=False):
         con_pyodbc = self.con.raw_connection()
-        
+
         if auto_commit==True:
             con_pyodbc.autocommit = True
         else:
@@ -54,7 +54,7 @@ class SQL:
     def __update_dtype(self, df, column, dtype):
         dict_dtype = {
             'object':'varchar(max_len_a)',
-            'int64':'int',
+            'int64':'max_len_aint',
             'float64':'decimal(max_len_b, max_len_a)',
             'bool':'bit',
             'datetime64':'datetime',
@@ -73,6 +73,13 @@ class SQL:
         elif dtype == 'float64':
             max_len_a = max(df[column].apply(lambda x: float_size(x) if pd.notnull(x) else 0))
             max_len_b = 15 + max_len_a
+        elif dtype == 'int64':
+            if df[column].abs().max() <= 99:
+                max_len_a = 'tiny'
+            elif df[column].abs().max() <= 9999:
+                max_len_a = 'small'
+            elif df[column].abs().max() > 999999999:
+                max_len_a = 'big'
         sql_type = dict_dtype[str(dtype)]
         sql_type = sql_type.replace('max_len_a', str(max_len_a))
         sql_type = sql_type.replace('max_len_b', str(max_len_b))
