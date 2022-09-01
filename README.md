@@ -31,4 +31,4 @@ MIT License
 
 ## Release Updates
 
-Updated MSSQL create table logic to account for various size integer columns.
+Updated to_sql append logic to create table if it doesn't exist.  Also adjusted create table to default without extras.

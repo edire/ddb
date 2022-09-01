@@ -86,7 +86,7 @@ class SQL:
         sql_column = f'[{column}] {sql_type}'
         return sql_column
 
-    def create_table(self, df, name, schema='dbo', replace=False, extras=True):
+    def create_table(self, df, name, schema='dbo', replace=False, extras=False):
         column_list = []
         for column, dtype in df.dtypes.iteritems():
             column_list.append(self.__update_dtype(df, column, dtype))
@@ -144,7 +144,10 @@ class SQL:
         elif if_exists == 'fail':
             self.create_table(df_copy, name, schema, replace=False, **kwargs)
         elif if_exists == 'append':
-            pass
+            try:
+                self.create_table(df_copy, name, schema, replace=False, **kwargs)
+            except:
+                pass
         else:
             raise(Exception('if_exists value is invalid, please choose between (fail, replace, append)'))
 
