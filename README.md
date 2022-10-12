@@ -31,4 +31,4 @@ MIT License
 
 ## Release Updates
 
-Updated to_sql append logic to create table if it doesn't exist.  Also adjusted create table to default without extras.
+Updated tools to separate clean data and clean column names to be independently callable.
