@@ -31,4 +31,4 @@ MIT License
 
 ## Release Updates
 
-Updated tools to separate clean data and clean column names to be independently callable.
+Adjusted location of replacing nan with None to just prior to SQL load to remove dtype change affect.

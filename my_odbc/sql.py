@@ -3,6 +3,7 @@ import os
 import urllib
 from sqlalchemy import create_engine
 import pandas as pd
+import numpy as np
 
 
 #%% Microsoft SQL
@@ -151,6 +152,7 @@ class SQL:
         else:
             raise(Exception('if_exists value is invalid, please choose between (fail, replace, append)'))
 
+        df_copy = df_copy.replace({np.nan: None})
         sql = self.__get_insert_query(df_copy, name, schema)
         vals = list(df_copy.itertuples(index=False))
         self.con.execute(sql, vals)

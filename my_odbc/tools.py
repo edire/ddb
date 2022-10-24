@@ -17,7 +17,6 @@ def clean(df, rowload=True):
 
 def clean_data(df):
     df = df.applymap(__scrub_data)
-    df = df.replace({np.nan: None})
     return df
 
 
