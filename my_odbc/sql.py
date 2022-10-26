@@ -89,7 +89,7 @@ class SQL:
 
     def create_table(self, df, name, schema='dbo', replace=False, extras=False):
         column_list = []
-        for column, dtype in df.dtypes.iteritems():
+        for column, dtype in df.dtypes.items():
             column_list.append(self.__update_dtype(df, column, dtype))
             if 'RowLoadDateTime' in column_list and extras == True:
                 column_list.remove('RowLoadDateTime')
@@ -129,7 +129,7 @@ class SQL:
         sql_current = f"SELECT TOP 1 * FROM {schema}.{name}"
         df_current = self.read(sql_current)
         columns_current = df_current.columns
-        for column, dtype in df.dtypes.iteritems():
+        for column, dtype in df.dtypes.items():
             if column not in columns_current:
                 sql_new = self.__update_dtype(df, column, dtype)
                 sql_new = f"ALTER TABLE {schema}.{name} ADD {sql_new}"
