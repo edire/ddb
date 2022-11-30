@@ -1,17 +1,17 @@
-# my_odbc
+# Description
 
-A Python library for custom data connections.
+A Python library by Dire Analytics for custom data connections.
 
 ## Installation
 
-pip install git+https://github.com/edire/my_odbc.git
+pip install git+https://github.com/edire/ddb.git
 
 ## Usage
 
 ```python
-import my_odbc
+import ddb
 
-odbc = my_odbc.SQL(db='Test', server='localhost')
+odbc = ddb.SQL(db='Test', server='localhost')
 
 df = odbc.read("select * from dbo.tbl")
 
@@ -28,7 +28,3 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ## License
 
 MIT License
-
-## Release Updates
-
-Adjusted location of replacing nan with None to just prior to SQL load to remove dtype change affect.
