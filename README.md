@@ -6,7 +6,7 @@ A Python library by Dire Analytics for custom data connections.
 
 pip install git+https://github.com/edire/ddb.git
 
-## Usage
+## SQL
 
 ```python
 import ddb
@@ -28,3 +28,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ## License
 
 MIT License
+
+## Updates
+
+12/14/2022 - Added mysql module.
