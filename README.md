@@ -32,3 +32,4 @@ MIT License
 ## Updates
 
 12/14/2022 - Added mysql module.
+12/22/2022 - Added clean_string function to tools.

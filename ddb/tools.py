@@ -21,8 +21,28 @@ def clean_data(df):
 
 
 def clean_column_names(df):
-    df.columns = __scrub_column_names(df.columns)
+    lst_output = []
+    for el in df.columns:
+        lst_output.append(clean_string(el))
+    df.columns = lst_output
     return df
+
+    
+def clean_string(str_input):
+    for sc in [' ', '\\n']:
+        str_input = str_input.replace(sc, '_')
+        
+    str_new = ''
+    for ch in str_input:
+        if ((ch.lower()>='a' and ch.lower()<='z') or (ch>='0' and ch<='9') or ch=='_'):
+            str_new += ch
+
+    if str_new[0] == '_':
+        str_new = str_new[1:]
+    if str_new[-1] == '_':
+        str_new = str_new[:-1]
+
+    return str_new
 
 
 #%% Internal Functions
@@ -34,20 +54,3 @@ def __scrub_data(x):
         if x == 0:
             x = np.NaN
     return x
-
-
-def __scrub_column_names(lst_input):
-    lst_output = []
-    for el in lst_input:
-        el_new = ''
-        for sc in [' ', '\\n']:
-            el = el.replace(sc, '_')
-        for ch in el:
-            if ((ch.lower()>='a' and ch.lower()<='z') or (ch>='0' and ch<='9') or ch=='_'):
-                el_new += ch
-        if el_new[0] == '_':
-            el_new = el_new[1:]
-        if el_new[-1] == '_':
-            el_new = el_new[:-1]
-        lst_output.append(el_new)
-    return lst_output
