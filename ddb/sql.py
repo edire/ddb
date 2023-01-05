@@ -10,11 +10,11 @@ import numpy as np
 
 class SQL:
     def __init__(self
-                 , db = os.getenv('odbc_db')
-                 , server = os.getenv('odbc_server')
+                 , db = os.getenv('sql_db')
+                 , server = os.getenv('sql_server')
                  , local_cred = 'yes'
-                 , uid = os.getenv('odbc_uid')
-                 , pwd = os.getenv('odbc_pwd')
+                 , uid = os.getenv('sql_uid')
+                 , pwd = os.getenv('sql_pwd')
                  , driver = 'ODBC Driver 17 for SQL Server'
                  , fast_executemany = True
                  ):
