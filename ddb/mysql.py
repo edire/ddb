@@ -3,6 +3,7 @@ import os
 from sqlalchemy import create_engine
 import pandas as pd
 import numpy as np
+from  urllib.parse import quote_plus
 
 
 #%% MySQL
@@ -13,7 +14,11 @@ class MySQL:
                  , server = os.getenv('odbc_server')
                  , uid = os.getenv('odbc_uid')
                  , pwd = os.getenv('odbc_pwd')
+                 , pwd_parse = False
                  ):
+
+        if pwd_parse == True:
+            pwd = quote_plus(pwd)
 
         self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}')
 

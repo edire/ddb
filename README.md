@@ -31,6 +31,7 @@ MIT License
 
 ## Updates
 
+01/04/2023 - Added password parse option to MySQL.
 12/31/2022 - Added SSAS module.
 12/22/2022 - Added clean_string function to tools.
 12/14/2022 - Added mysql module.
