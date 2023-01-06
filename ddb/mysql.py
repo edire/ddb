@@ -88,7 +88,13 @@ class MySQL:
             );"""
         else:
             sql_create += f"{columns});"
-        self.run(sql_create)
+        
+        try:
+            self.run(sql_create)
+        except:
+            sql_create = sql_create.replace('RowLoadDateTime DATETIME NOT NULL DEFAULT (NOW()),',
+                                            'RowLoadDateTime DATETIME NOT NULL DEFAULT NOW(),')
+            self.run(sql_create)
 
     def where_not_exists(self, df, name, columns):
         columns = list(columns)

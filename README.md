@@ -31,6 +31,7 @@ MIT License
 
 ## Updates
 
+01/06/2023 - Added BigQuery module with read function.  Updated MySQL RowLoadDateTime for new and old MySQL server versions.
 01/05/2023 - Adjusted env variable default names for multiple connection types.
 01/04/2023 - Added password parse option to MySQL.
 12/31/2022 - Added SSAS module.
