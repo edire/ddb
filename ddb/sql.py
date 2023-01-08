@@ -90,9 +90,10 @@ class SQL:
     def create_table(self, df, name, schema='dbo', replace=False, extras=False):
         column_list = []
         for column, dtype in df.dtypes.items():
-            column_list.append(self.__update_dtype(df, column, dtype))
-            if 'RowLoadDateTime' in column_list and extras == True:
-                column_list.remove('RowLoadDateTime')
+            if column == 'RowLoadDateTime' and extras == True:
+                pass
+            else:
+                column_list.append(self.__update_dtype(df, column, dtype))
         columns = ',\n'.join(column_list)
         sql_create = ''
         if replace == True:
