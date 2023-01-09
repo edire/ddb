@@ -31,6 +31,7 @@ MIT License
 
 ## Updates
 
+01/09/2023 - Added openpyxl to dependencies on install.
 01/08/2023 - Fixed duplicate RowLoadDateTime issue in create_table function for sql and mysql.
 01/06/2023 - Added BigQuery module with read function.  Updated MySQL RowLoadDateTime for new and old MySQL server versions.
 01/05/2023 - Adjusted env variable default names for multiple connection types.
