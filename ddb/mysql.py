@@ -14,13 +14,14 @@ class MySQL:
                  , server = os.getenv('mysql_server')
                  , uid = os.getenv('mysql_uid')
                  , pwd = os.getenv('mysql_pwd')
-                 , pwd_parse = False
                  ):
 
-        if pwd_parse == True:
+        try:
+            self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}')
+            self.read('SELECT 1')
+        except:
             pwd = quote_plus(pwd)
-
-        self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}')
+            self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}')
 
     def read(self, sql):
         return pd.read_sql_query(sql=sql, con=self.con)
