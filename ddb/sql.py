@@ -12,14 +12,14 @@ class SQL:
     def __init__(self
                  , db = os.getenv('sql_db')
                  , server = os.getenv('sql_server')
-                 , local_cred = 'yes'
+                 , local_cred = True
                  , uid = os.getenv('sql_uid')
                  , pwd = os.getenv('sql_pwd')
                  , driver = 'ODBC Driver 17 for SQL Server'
                  , fast_executemany = True
                  ):
 
-        if local_cred=='yes':
+        if local_cred==True:
             uid_str = ''
             pwd_str = ''
             trusted_conn_str = 'trusted_connection=yes'
