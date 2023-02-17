@@ -24,7 +24,17 @@ class MySQL:
             self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}')
 
     def read(self, sql):
-        return pd.read_sql_query(sql=sql, con=self.con)
+        sql = sql.replace('\ufeff', '')
+        sql_list = sql.split(';')
+        for ele in range(len(sql_list)):
+            sql_list[ele] = sql_list[ele].strip()
+            if len(sql_list[ele]) == 0:
+                del(sql_list[ele])
+        with self.con.connect() as con:
+            for ele in range(len(sql_list) - 1):
+                con.execute(sql_list[ele])
+            df = pd.read_sql_query(sql=sql_list[-1], con=con)
+        return df
 
     def run(self, sql):
         con_pymysql = self.con.raw_connection()
