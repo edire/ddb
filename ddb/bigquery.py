@@ -13,7 +13,8 @@ class BigQuery:
                  , credentials_filepath = os.getenv('bigquery_cred')
                  ):
 
-        os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credentials_filepath
+        if credentials_filepath != None:
+            os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credentials_filepath
 
         self.client = bigquery.Client()
 

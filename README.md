@@ -31,6 +31,7 @@ MIT License
 
 ## Updates
 
+02/20/2023 - Updated bigquery module to allow connections from cloud resources.<br>
 02/17/2023 - Updated MySQL for reading multiple statement queries into DataFrame.<br>
 02/10/2023 - Added full functionality to BigQuery module.<br>
 02/06/2023 - Updated MySQL connector to automatically password parse if necessary.<br>
