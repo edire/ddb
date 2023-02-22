@@ -17,11 +17,12 @@ class MySQL:
                  ):
 
         try:
-            self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}')
+            self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}', isolation_level="AUTOCOMMIT")
             self.read('SELECT 1')
         except:
             pwd = quote_plus(pwd)
-            self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}')
+            self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}', isolation_level="AUTOCOMMIT")
+            self.read('SELECT 1')
 
     def read(self, sql):
         sql = sql.replace('\ufeff', '')
@@ -42,7 +43,6 @@ class MySQL:
             for query in sql.strip().split(';'):
                 if len(query) > 0:
                     cursor.execute(query + ';')
-            con_pymysql.commit()
 
     def __update_dtype(self, df, column, dtype):
         dict_dtype = {

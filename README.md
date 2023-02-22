@@ -9,16 +9,16 @@ pip install git+https://github.com/edire/ddb.git
 ## SQL
 
 ```python
-import ddb
+from ddb.sql import SQL
 
-odbc = ddb.SQL(db='Test', server='localhost')
+odbc = SQL(db='Test', server='localhost')
 
 df = odbc.read("select * from dbo.tbl")
 
 odbc.run("exec dbo.stp")
 
-df.to_sql("tbl2", con=odbc.con, schema="dbo", index=False)
-odbc.to_sql(df, "tbl2", schema="dbo", index=False)
+df.to_sql("tbl", con=odbc.con, schema="dbo", index=False)
+odbc.to_sql(df, "tbl", schema="dbo", index=False)
 ```
 
 ## Contributing
@@ -31,6 +31,7 @@ MIT License
 
 ## Updates
 
+02/22/2023 - Fixed run logic in SQL and MySQL to use autocommit appropriately.  Removed parameters in SQL class.<br>
 02/20/2023 - Updated bigquery module to allow connections from cloud resources.<br>
 02/17/2023 - Updated MySQL for reading multiple statement queries into DataFrame.<br>
 02/10/2023 - Added full functionality to BigQuery module.<br>

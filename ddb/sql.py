@@ -12,45 +12,40 @@ class SQL:
     def __init__(self
                  , db = os.getenv('sql_db')
                  , server = os.getenv('sql_server')
-                 , local_cred = True
                  , uid = os.getenv('sql_uid')
                  , pwd = os.getenv('sql_pwd')
                  , driver = 'ODBC Driver 17 for SQL Server'
-                 , fast_executemany = True
                  ):
 
-        if local_cred==True:
-            uid_str = ''
-            pwd_str = ''
-            trusted_conn_str = 'trusted_connection=yes'
-        else:
-            uid_str = f'UID={uid};'
-            pwd_str = f'PWD={pwd};'
-            trusted_conn_str = ''
         driver_str = f'DRIVER={driver};'
         server_str = f'SERVER={server};'
         db_str = f'DATABASE={db};'
 
-        con_str_write = urllib.parse.quote_plus(driver_str + server_str + db_str + trusted_conn_str + uid_str + pwd_str)
-        self.con = create_engine('mssql+pyodbc:///?odbc_connect={}'.format(con_str_write), fast_executemany=fast_executemany)
+        try:
+            uid_str = ''
+            pwd_str = ''
+            trusted_conn_str = 'trusted_connection=yes'
+            con_str_write = urllib.parse.quote_plus(driver_str + server_str + db_str + trusted_conn_str + uid_str + pwd_str)
+            self.con = create_engine('mssql+pyodbc:///?odbc_connect={}'.format(con_str_write), fast_executemany=True, isolation_level="AUTOCOMMIT")
+            self.read('SELECT 1')
+
+        except:
+            uid_str = f'UID={uid};'
+            pwd_str = f'PWD={pwd};'
+            trusted_conn_str = ''
+            con_str_write = urllib.parse.quote_plus(driver_str + server_str + db_str + trusted_conn_str + uid_str + pwd_str)
+            self.con = create_engine('mssql+pyodbc:///?odbc_connect={}'.format(con_str_write), fast_executemany=True, isolation_level="AUTOCOMMIT")
+            self.read('SELECT 1')
 
     def read(self, sql):
         return pd.read_sql_query(sql=sql, con=self.con)
 
-    def run(self, sql, auto_commit=False):
+    def run(self, sql):
         con_pyodbc = self.con.raw_connection()
-
-        if auto_commit==True:
-            con_pyodbc.autocommit = True
-        else:
-            con_pyodbc.autocommit = False
-
         with con_pyodbc.cursor() as cursor:
             cursor.execute(sql)
             while cursor.nextset():
                 pass
-            if auto_commit==False:
-                con_pyodbc.commit()
 
     def __update_dtype(self, df, column, dtype):
         dict_dtype = {
