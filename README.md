@@ -31,6 +31,7 @@ MIT License
 
 ## Updates
 
+02/23/2023 - Updated class names for consistency.<br>
 02/22/2023 - Fixed run logic in SQL and MySQL to use autocommit appropriately.  Removed parameters in SQL class.<br>
 02/20/2023 - Updated bigquery module to allow connections from cloud resources.<br>
 02/17/2023 - Updated MySQL for reading multiple statement queries into DataFrame.<br>

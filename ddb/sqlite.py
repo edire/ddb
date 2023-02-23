@@ -5,7 +5,7 @@ import sqlite3
 
 #%% SQLite3
 
-class SQLite:
+class SQL:
     def __init__(self, db):
         self.con = sqlite3.connect(db)
     

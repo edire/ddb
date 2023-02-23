@@ -6,7 +6,7 @@ import pandas as pd
 
 #%% Microsoft Access
 
-class Access:
+class SQL:
     def __init__(self,
                  filepath,
                  driver='DRIVER=Microsoft Access Driver (*.mdb, *.accdb);',

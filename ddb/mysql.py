@@ -8,7 +8,7 @@ from  urllib.parse import quote_plus
 
 #%% MySQL
 
-class MySQL:
+class SQL:
     def __init__(self
                  , db = os.getenv('mysql_db')
                  , server = os.getenv('mysql_server')

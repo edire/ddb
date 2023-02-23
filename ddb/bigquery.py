@@ -8,7 +8,7 @@ import numpy as np
 
 #%% BigQuery
 
-class BigQuery:
+class SQL:
     def __init__(self
                  , credentials_filepath = os.getenv('bigquery_cred')
                  ):
