@@ -79,7 +79,7 @@ class SQL:
         sql_column = f'`{column}` {sql_type}'
         return sql_column
 
-    def create_table(self, df, name, replace=False, extras=False):
+    def create_table(self, df, name, replace=False, extras=False, **kwargs):
         column_list = []
         for column, dtype in df.dtypes.items():
             if column == 'RowLoadDateTime' and extras == True:

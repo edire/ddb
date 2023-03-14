@@ -31,6 +31,7 @@ MIT License
 
 ## Updates
 
+03/13/2023 - Added **kwargs to create_table function across all to eliminate error of passing missing variables.<br>
 02/23/2023 - Updated class names for consistency.<br>
 02/22/2023 - Fixed run logic in SQL and MySQL to use autocommit appropriately.  Removed parameters in SQL class.<br>
 02/20/2023 - Updated bigquery module to allow connections from cloud resources.<br>
