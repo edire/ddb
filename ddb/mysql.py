@@ -1,4 +1,4 @@
-
+s
 import os
 from sqlalchemy import create_engine
 import pandas as pd
@@ -48,24 +48,27 @@ class SQL:
         dict_dtype = {
             'object':'varchar(max_len_a)',
             'int64':'max_len_aint',
-            'float64':'decimal(max_len_b, max_len_a)',
+            'float64':'decimal(max_len_a, max_len_b)',
             'bool':'bit',
             'datetime64':'datetime',
             'datetime64[ns]':'datetime',
             }
         dtype = str(dtype)
-        def float_size(x):
+        def float_size(x, front=True):
+            spl = 0 if front==True else 1
             if '.' in str(x):
-                return len(str(x).split('.')[1])
+                ln = len(str(x).split('.')[spl])
             else:
-                return 0
+                ln = len(str(x)) if front==True else 0
+            return ln
         max_len_a = ''
         max_len_b = ''
         if dtype == 'object':
             max_len_a = max(df[column].apply(lambda x: len(str(x)) if pd.notnull(x) else 0)) + 5
         elif dtype == 'float64':
-            max_len_a = max(df[column].apply(lambda x: float_size(x) if pd.notnull(x) else 0))
-            max_len_b = 15 + max_len_a
+            max_len_a = max(df[column].apply(lambda x: float_size(x, front=True) if pd.notnull(x) else 0))
+            max_len_b = max(df[column].apply(lambda x: float_size(x, front=False) if pd.notnull(x) else 0))
+            max_len_a = max_len_a + max_len_b + 2
         elif dtype == 'int64':
             if df[column].abs().max() <= 99:
                 max_len_a = 'tiny'
