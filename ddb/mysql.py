@@ -98,18 +98,12 @@ class SQL:
             sql_create += f"""
             ID{name} INT AUTO_INCREMENT NOT NULL,
             {columns},
-            RowLoadDateTime DATETIME NOT NULL DEFAULT (NOW()),
+            RowLoadDateTime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (ID{name})
             );"""
         else:
             sql_create += f"{columns});"
-        
-        try:
-            self.run(sql_create)
-        except:
-            sql_create = sql_create.replace('RowLoadDateTime DATETIME NOT NULL DEFAULT (NOW()),',
-                                            'RowLoadDateTime DATETIME NOT NULL DEFAULT NOW(),')
-            self.run(sql_create)
+        self.run(sql_create)
 
     def where_not_exists(self, df, name, columns):
         columns = list(columns)
