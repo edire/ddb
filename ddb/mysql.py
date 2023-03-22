@@ -1,4 +1,4 @@
-s
+
 import os
 from sqlalchemy import create_engine
 import pandas as pd
@@ -99,6 +99,7 @@ class SQL:
             ID{name} INT AUTO_INCREMENT NOT NULL,
             {columns},
             RowLoadDateTime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            RowModifiedDateTime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             PRIMARY KEY (ID{name})
             );"""
         else:
