@@ -28,8 +28,9 @@ def clean_column_names(df):
     df.columns = lst_output
     return df
 
-    
+
 def clean_string(str_input):
+    str_input = str(str_input)
     for sc in [' ', '\\n']:
         str_input = str_input.replace(sc, '_')
         
