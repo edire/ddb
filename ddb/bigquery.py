@@ -30,7 +30,7 @@ class SQL:
 
     def __update_dtype(self, df, column, dtype):
         dict_dtype = {
-            'object':'STRING(max_len_a)',
+            'object':'STRING',
             'int64':'INT64',
             'float64':'FLOAT64',
             'bool':'BOOL',
@@ -38,11 +38,7 @@ class SQL:
             'datetime64[ns]':'DATETIME',
             }
         dtype = str(dtype)
-        max_len_a = ''
-        if dtype == 'object':
-            max_len_a = max(df[column].apply(lambda x: len(str(x)) if pd.notnull(x) else 0)) + 5
-        sql_type = dict_dtype[str(dtype)]
-        sql_type = sql_type.replace('max_len_a', str(max_len_a))
+        sql_type = dict_dtype[dtype]
         sql_column = f'`{column}` {sql_type}'
         return sql_column
 
