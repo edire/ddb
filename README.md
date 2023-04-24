@@ -31,7 +31,7 @@ MIT License
 
 ## Updates
 
-04/23/2023 - Updated bigquery to remove string length restrictions.  Added pyarrow to required libraries for bigquery to_dataframe function.<br>
+04/23/2023 - Updated bigquery to remove string length restrictions.  Added pyarrow to required libraries for bigquery to_dataframe function.  Added db-dtypes to required libraries for bigquery.<br>
 03/27/2023 - Updated clean column function to convert to string before cleaning.<br>
 03/14/2023 - Updated data type amounts for float columns in sql and mysql.<br>
 03/13/2023 - Added **kwargs to create_table function across all to eliminate error of passing missing variables.<br>
