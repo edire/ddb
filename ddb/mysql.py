@@ -1,6 +1,6 @@
 
 import os
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 import pandas as pd
 import numpy as np
 from  urllib.parse import quote_plus
@@ -17,11 +17,11 @@ class SQL:
                  ):
 
         try:
-            self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}', isolation_level="AUTOCOMMIT")
+            self.engine = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}', isolation_level="AUTOCOMMIT")
             self.read('SELECT 1')
         except:
             pwd = quote_plus(pwd)
-            self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}', isolation_level="AUTOCOMMIT")
+            self.engine = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}', isolation_level="AUTOCOMMIT")
             self.read('SELECT 1')
 
     def read(self, sql):
@@ -31,18 +31,17 @@ class SQL:
             sql_list[ele] = sql_list[ele].strip()
             if len(sql_list[ele]) == 0:
                 del(sql_list[ele])
-        with self.con.connect() as con:
+        with self.engine.connect() as connection:
             for ele in range(len(sql_list) - 1):
-                con.execute(sql_list[ele])
-            df = pd.read_sql_query(sql=sql_list[-1], con=con)
+                connection.execute(text(sql_list[ele]))
+            df = pd.read_sql_query(sql=sql_list[-1], con=connection)
         return df
 
     def run(self, sql):
-        con_pymysql = self.con.raw_connection()
-        with con_pymysql.cursor() as cursor:
+        with self.engine.connect() as connection:
             for query in sql.strip().split(';'):
                 if len(query) > 0:
-                    cursor.execute(query + ';')
+                    connection.execute(text(query + ';'))
 
     def __update_dtype(self, df, column, dtype):
         dict_dtype = {
@@ -150,20 +149,6 @@ class SQL:
             raise(Exception('if_exists value is invalid, please choose between (fail, replace, append)'))
 
         df_copy = df_copy.replace({np.nan: None})
-        sql = self.__get_insert_query(df_copy, name)
-        vals = list(df_copy.itertuples(index=False))
+        df_copy.to_sql(name, if_exists='append', index=False, con=self.con)
         
-        con_pymysql = self.con.raw_connection()
-        with con_pymysql.cursor() as cursor:
-            cursor.executemany(sql, vals)
-            con_pymysql.commit()
         return True
-
-    def __get_insert_query(self, df, name):
-        list_columns = [f'`{x}`' for x in df.columns]
-        list_values = ['%s'] * len(list_columns)
-
-        sql_columns = ', '.join(list_columns)
-        sql_values = ', '.join(list_values)
-        sql = f'INSERT INTO {name} ({sql_columns}) VALUES ({sql_values});'
-        return sql

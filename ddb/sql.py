@@ -1,7 +1,7 @@
 
 import os
 import urllib
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 import pandas as pd
 import numpy as np
 
@@ -38,14 +38,12 @@ class SQL:
             self.read('SELECT 1')
 
     def read(self, sql):
-        return pd.read_sql_query(sql=sql, con=self.con)
+        with self.con.connect() as connection:
+            return pd.read_sql_query(sql=sql, con=connection)
 
     def run(self, sql):
-        con_pyodbc = self.con.raw_connection()
-        with con_pyodbc.cursor() as cursor:
-            cursor.execute(sql)
-            while cursor.nextset():
-                pass
+        with self.con.connect() as connection:
+            connection.execute(text(sql))
 
     def __update_dtype(self, df, column, dtype):
         dict_dtype = {
@@ -152,16 +150,6 @@ class SQL:
             raise(Exception('if_exists value is invalid, please choose between (fail, replace, append)'))
 
         df_copy = df_copy.replace({np.nan: None})
-        sql = self.__get_insert_query(df_copy, name, schema)
-        vals = list(df_copy.itertuples(index=False))
-        self.con.execute(sql, vals)
+        df_copy.to_sql(name, schema=schema, if_exists='append', index=False, con=self.con)
+
         return True
-
-    def __get_insert_query(self, df, name, schema):
-        list_columns = [f'[{x}]' for x in df.columns]
-        list_values = ['?'] * len(list_columns)
-
-        sql_columns = ', '.join(list_columns)
-        sql_values = ', '.join(list_values)
-        sql = f'INSERT INTO {schema}.{name} ({sql_columns}) VALUES ({sql_values})'
-        return sql
