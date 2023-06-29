@@ -17,11 +17,11 @@ class SQL:
                  ):
 
         try:
-            self.engine = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}', isolation_level="AUTOCOMMIT")
+            self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}', isolation_level="AUTOCOMMIT")
             self.read('SELECT 1')
         except:
             pwd = quote_plus(pwd)
-            self.engine = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}', isolation_level="AUTOCOMMIT")
+            self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}', isolation_level="AUTOCOMMIT")
             self.read('SELECT 1')
 
     def read(self, sql):
@@ -31,14 +31,14 @@ class SQL:
             sql_list[ele] = sql_list[ele].strip()
             if len(sql_list[ele]) == 0:
                 del(sql_list[ele])
-        with self.engine.connect() as connection:
+        with self.con.connect() as connection:
             for ele in range(len(sql_list) - 1):
                 connection.execute(text(sql_list[ele]))
             df = pd.read_sql_query(sql=sql_list[-1], con=connection)
         return df
 
     def run(self, sql):
-        with self.engine.connect() as connection:
+        with self.con.connect() as connection:
             for query in sql.strip().split(';'):
                 if len(query) > 0:
                     connection.execute(text(query + ';'))

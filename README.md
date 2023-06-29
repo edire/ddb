@@ -31,6 +31,7 @@ MIT License
 
 ## Updates
 
+06/29/2023 - Reverted MySQL engine to con.<br>
 06/16/2023 - Updated SQL and MySQL modules for SQLAlchemy 2.0.<br>
 04/23/2023 - Updated bigquery to remove string length restrictions.  Added pyarrow to required libraries for bigquery to_dataframe function.  Added db-dtypes to required libraries for bigquery.<br>
 03/27/2023 - Updated clean column function to convert to string before cleaning.<br>
