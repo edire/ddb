@@ -1,7 +1,7 @@
 
 import os
 import urllib
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine
 import pandas as pd
 import numpy as np
 
@@ -42,8 +42,11 @@ class SQL:
             return pd.read_sql_query(sql=sql, con=connection)
 
     def run(self, sql):
-        with self.con.connect() as connection:
-            connection.execute(text(sql))
+        con_pyodbc = self.con.raw_connection()
+        with con_pyodbc.cursor() as cursor:
+            cursor.execute(sql)
+            while cursor.nextset():
+                pass
 
     def __update_dtype(self, df, column, dtype):
         dict_dtype = {

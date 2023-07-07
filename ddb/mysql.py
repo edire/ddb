@@ -38,10 +38,11 @@ class SQL:
         return df
 
     def run(self, sql):
-        with self.con.connect() as connection:
+        con_pymysql = self.con.raw_connection()
+        with con_pymysql.cursor() as cursor:
             for query in sql.strip().split(';'):
                 if len(query) > 0:
-                    connection.execute(text(query + ';'))
+                    cursor.execute(query + ';')
 
     def __update_dtype(self, df, column, dtype):
         dict_dtype = {
