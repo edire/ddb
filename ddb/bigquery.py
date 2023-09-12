@@ -10,7 +10,7 @@ import numpy as np
 
 class SQL:
     def __init__(self
-                 , credentials_filepath = os.getenv('bigquery_cred')
+                 , credentials_filepath = os.getenv('BIGQUERY_CRED')
                  ):
 
         if credentials_filepath != None:

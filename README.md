@@ -31,6 +31,7 @@ MIT License
 
 ## Updates
 
+08/12/2023 - Update for applymap deprecation and upper env vars.<br>
 07/07/2023 - Reverted MSSQL and MySQL Run logic in order to pick up proc errors.<br>
 06/29/2023 - Reverted MySQL engine to con.<br>
 06/16/2023 - Updated SQL and MySQL modules for SQLAlchemy 2.0.<br>

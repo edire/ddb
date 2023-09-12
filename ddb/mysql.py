@@ -10,10 +10,10 @@ from  urllib.parse import quote_plus
 
 class SQL:
     def __init__(self
-                 , db = os.getenv('mysql_db')
-                 , server = os.getenv('mysql_server')
-                 , uid = os.getenv('mysql_uid')
-                 , pwd = os.getenv('mysql_pwd')
+                 , db = os.getenv('MYSQL_DB')
+                 , server = os.getenv('MYSQL_SERVER')
+                 , uid = os.getenv('MYSQL_UID')
+                 , pwd = os.getenv('MYSQL_PWD')
                  ):
 
         try:

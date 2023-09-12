@@ -17,7 +17,7 @@ def clean(df, rowloadtime=False, drop_cols=True):
 
 
 def clean_data(df):
-    df = df.applymap(__scrub_data)
+    df = df.map(__scrub_data)
     return df
 
 
