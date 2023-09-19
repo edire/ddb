@@ -14,14 +14,15 @@ class SQL:
                  , server = os.getenv('MYSQL_SERVER')
                  , uid = os.getenv('MYSQL_UID')
                  , pwd = os.getenv('MYSQL_PWD')
+                 , port = 3306
                  ):
 
         try:
-            self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}', isolation_level="AUTOCOMMIT")
+            self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}:{port}/{db}', isolation_level="AUTOCOMMIT")
             self.read('SELECT 1')
         except:
             pwd = quote_plus(pwd)
-            self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}/{db}', isolation_level="AUTOCOMMIT")
+            self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}:{port}/{db}', isolation_level="AUTOCOMMIT")
             self.read('SELECT 1')
 
     def read(self, sql):
