@@ -19,11 +19,11 @@ class SQL:
 
         try:
             self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}:{port}/{db}', isolation_level="AUTOCOMMIT")
-            self.read('SELECT 1')
+            self.run('SELECT 1')
         except:
             pwd = quote_plus(pwd)
             self.con = create_engine(f'mysql+pymysql://{uid}:{pwd}@{server}:{port}/{db}', isolation_level="AUTOCOMMIT")
-            self.read('SELECT 1')
+            self.run('SELECT 1')
 
     def read(self, sql):
         sql = sql.replace('\ufeff', '')

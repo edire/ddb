@@ -31,6 +31,7 @@ MIT License
 
 ## Updates
 
+10/04/2023 - Updated Bigquery data type mapping.<br>
 09/19/2023 - Added port option for MySQL.<br>
 08/12/2023 - Update for applymap deprecation and upper env vars.<br>
 07/07/2023 - Reverted MSSQL and MySQL Run logic in order to pick up proc errors.<br>

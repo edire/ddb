@@ -27,17 +27,17 @@ class SQL:
                 query_job = self.client.query(query)
                 query_job.result()
 
-
     def __update_dtype(self, df, column, dtype):
         dict_dtype = {
             'object':'STRING',
+            'int32':'INT64',
             'int64':'INT64',
             'float64':'FLOAT64',
             'bool':'BOOL',
             'datetime64':'DATETIME',
             'datetime64[ns]':'DATETIME',
             }
-        dtype = str(dtype)
+        dtype = str(dtype).lower()
         sql_type = dict_dtype[dtype]
         sql_column = f'`{column}` {sql_type}'
         return sql_column
