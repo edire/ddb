@@ -55,6 +55,8 @@ def clean_string(str_input):
 def __scrub_data(x):
     if isinstance(x, str):
         x = x.strip()
+        if x == '':
+            x = np.NaN
     elif isinstance(x, int) or isinstance(x, float):
         if x == 0:
             x = np.NaN

@@ -2,7 +2,7 @@
 from setuptools import setup
 setup(
     name='ddb',
-    version='2.1.2',
+    version='2.1.3',
     author='Eric Di Re',
     description='Custom DB Data Connections.',
     url='https://github.com/edire/ddb.git',
