@@ -31,6 +31,7 @@ MIT License
 
 ## Updates
 
+10/20/2023 - Updated clean tool for empty column names.<br>
 10/04/2023 - Updated Bigquery data type mapping.<br>
 09/19/2023 - Added port option for MySQL.<br>
 08/12/2023 - Update for applymap deprecation and upper env vars.<br>

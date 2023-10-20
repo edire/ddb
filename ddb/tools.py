@@ -41,10 +41,11 @@ def clean_string(str_input):
 
     while '__' in str_new:
         str_new = str_new.replace('__', '_')
-    if str_new[0] == '_':
-        str_new = str_new[1:]
-    if str_new[-1] == '_':
-        str_new = str_new[:-1]
+    if len(str_new) > 1:
+        if str_new[0] == '_':
+            str_new = str_new[1:]
+        if str_new[-1] == '_':
+            str_new = str_new[:-1]
 
     return str_new
 
